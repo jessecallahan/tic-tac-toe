@@ -8,6 +8,7 @@ function Space(yCoordinate, xCoordinate, markedSpace) {
   this.xCoordinate = xCoordinate;
   this.markedSpace = markedSpace;
 }
+
 var space1 = new Space(1, 1, "")
 var space2 = new Space(1, 2, "")
 var space3 = new Space(1, 3, "")
@@ -17,6 +18,7 @@ var space6 = new Space(2, 3, "")
 var space7 = new Space(3, 1, "")
 var space8 = new Space(3, 2, "")
 var space9 = new Space(3, 3, "")
+
 function Board() {
   this.spaces = [space1, space2, space3, space4, space5, space6, space7, space8, space9];
 };
@@ -32,7 +34,9 @@ Player.prototype.mark = function () {
   return this.marker;
 }
 Space.prototype.mark = function (player) {
-  return this.markedSpace += player.marker;
+  if (this.markedSpace === "")
+    return this.markedSpace = player.marker;
+  else { return player }
 }
 Space.prototype.markedBy = function () {
   return this.markedSpace;
@@ -64,14 +68,11 @@ Board.prototype.threeInARow = function () {
     if (space7.markedSpace === "X" && space5.markedSpace === "X" && space3.markedSpace === "X" ||
       space7.markedSpace === "O" && space5.markedSpace === "O" && space3.markedSpace === "O") { return true }
 
-    if (space1.markedSpace != "" && space2.markedSpace != "" && space3.markedSpace != "" &&
-      space4.markedSpace != "" && space5.markedSpace != "" && space6.markedSpace != "" &&
-      space7.markedSpace != "" && space8.markedSpace != "" && space9.markedSpace != "") { return true }
+
 
     else { return false }
   }
 }
-
 
 Board.prototype.find = function (y, x) {
   for (i = 0; i < board.spaces.length; i++) {
@@ -91,7 +92,16 @@ Game.prototype.nextTurn = function (a) {
   }
 }
 
-
+Game.prototype.gameOver = function (gamer, marked) {
+  if (gamer === true) {
+    $("#winner").text(marked + " wins!")
+  }
+  if (space1.markedSpace != "" && space2.markedSpace != "" && space3.markedSpace != "" &&
+    space4.markedSpace != "" && space5.markedSpace != "" && space6.markedSpace != "" &&
+    space7.markedSpace != "" && space8.markedSpace != "" && space9.markedSpace != "") {
+    return $("#winner").text("draw")
+  }
+}
 // var testPlayer = new Player("X");
 // console.log(testPlayer.mark());
 
@@ -114,127 +124,98 @@ Game.prototype.nextTurn = function (a) {
 // console.log(board)
 // console.log(board.gameOver());
 
+
 var player_o = new Player("O");
 var player_x = new Player("X");
 var board = new Board();
-var newGame = new Game(player_x, player_o, board)
-newGame.board.threeInARow()
+
+
 
 $(document).ready(function () {
+  var newGame = new Game(player_x, player_o, board)
   newGame.nextTurn(player_x)
 
   $("#square1").click(function () {
-    $("#square1").text(newGame.turn.marker)
     let s1 = newGame.board.find(1, 1)
     s1.mark(newGame.turn)
+    $("#square1").text(s1.markedSpace)
     newGame.nextTurn(newGame.turn)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    newGame.gameOver(newGame.board.threeInARow(), s1.markedSpace)
     console.log(newGame.board)
   });
 
   $("#square2").click(function () {
-    $("#square2").text(newGame.turn.marker)
     let s2 = newGame.board.find(1, 2)
     s2.mark(newGame.turn)
+    $("#square2").text(s2.markedSpace)
     newGame.nextTurn(newGame.turn)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    newGame.gameOver(newGame.board.threeInARow(), s2.markedSpace)
     console.log(newGame.board)
   });
 
   $("#square3").click(function () {
-    $("#square3").text(newGame.turn.marker)
     let s3 = newGame.board.find(1, 3)
     s3.mark(newGame.turn)
+    $("#square3").text(s3.markedSpace)
     newGame.nextTurn(newGame.turn)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    newGame.gameOver(newGame.board.threeInARow(), s3.markedSpace)
     console.log(newGame.board)
   });
 
   $("#square4").click(function () {
-    let next = newGame.turn
-    $("#square4").text(next.marker)
     let s4 = newGame.board.find(2, 1)
-    s4.mark(next)
-    newGame.nextTurn(next)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    s4.mark(newGame.turn)
+    $("#square4").text(s4.markedSpace)
+    newGame.nextTurn(newGame.turn)
+    newGame.gameOver(newGame.board.threeInARow(), s4.markedSpace)
+    console.log(newGame.board)
   });
 
   $("#square5").click(function () {
-    let next = newGame.turn
-    $("#square5").text(next.marker)
     let s5 = newGame.board.find(2, 2)
-    s5.mark(next)
-    newGame.nextTurn(next)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    s5.mark(newGame.turn)
+    $("#square5").text(s5.markedSpace)
+    newGame.nextTurn(newGame.turn)
+    newGame.gameOver(newGame.board.threeInARow(), s5.markedSpace)
+    console.log(newGame.board)
   });
 
   $("#square6").click(function () {
-    let next = newGame.turn
-    $("#square6").text(next.marker)
     let s6 = newGame.board.find(2, 3)
-    s6.mark(next)
-    newGame.nextTurn(next)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    s6.mark(newGame.turn)
+    $("#square6").text(s6.markedSpace)
+    newGame.nextTurn(newGame.turn)
+    newGame.gameOver(newGame.board.threeInARow(), s6.markedSpace)
+    console.log(newGame.board)
   });
 
 
   $("#square7").click(function () {
-    let next = newGame.turn
-    $("#square7").text(next.marker)
     let s7 = newGame.board.find(3, 1)
-    s7.mark(next)
-    newGame.nextTurn(next)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
-
+    s7.mark(newGame.turn)
+    $("#square7").text(s7.markedSpace)
+    newGame.nextTurn(newGame.turn)
+    newGame.gameOver(newGame.board.threeInARow(), s7.markedSpace)
     console.log(newGame.board)
   });
 
   $("#square8").click(function () {
-    $("#square8").text(newGame.turn.marker)
     let s8 = newGame.board.find(3, 2)
     s8.mark(newGame.turn)
+    $("#square8").text(s8.markedSpace)
     newGame.nextTurn(newGame.turn)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    newGame.gameOver(newGame.board.threeInARow(), s8.markedSpace)
     console.log(newGame.board)
   });
 
   $("#square9").click(function () {
-    $("#square9").text(newGame.turn.marker)
     let s9 = newGame.board.find(3, 3)
     s9.mark(newGame.turn)
+    $("#square9").text(s9.markedSpace)
     newGame.nextTurn(newGame.turn)
-    let gamer = newGame.board.threeInARow()
-    if (gamer === true) {
-      alert("dude")
-    }
+    newGame.gameOver(newGame.board.threeInARow(), s9.markedSpace)
     console.log(newGame.board)
-
   });
-
 
 
 });
