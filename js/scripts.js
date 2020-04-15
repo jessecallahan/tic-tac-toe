@@ -93,7 +93,6 @@ Game.prototype.nextTurn = function (a) {
 }
 
 Game.prototype.gameOver = function (gamer, marked) {
-  console.log(gamer)
   if (gamer === true) {
     $("#winner").text(marked + " wins!")
   }
