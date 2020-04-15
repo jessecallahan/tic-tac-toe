@@ -1,60 +1,79 @@
 
-  var board = [];
+function Player(marker) {
+  this.marker = marker;
+}
 
-    
-// Game.prototype.addSpace = function(space){
-//     this.board.push(space);
+function Space(yCoordinate, xCoordinate, markedSpace) {
+  this.yCoordinate = yCoordinate;
+  this.xCoordinate = xCoordinate;
+  this.markedSpace = markedSpace;
+}
+var space1 = new Space(1, 1, "")
+var space2 = new Space(1, 2, "")
+var space3 = new Space(1, 3, "")
+var space4 = new Space(2, 1, "")
+var space5 = new Space(2, 2, "")
+var space6 = new Space(2, 3, "")
+var space7 = new Space(3, 1, "")
+var space8 = new Space(3, 2, "")
+var space9 = new Space(3, 3, "")
+function Board() {
+  this.spaces = [space1, space2, space3, space4, space5, space6, space7, space8, space9];
+};
+
+Player.prototype.mark = function () {
+  return this.marker;
+}
+Space.prototype.mark = function (player) {
+  return this.markedSpace += player.marker;
+}
+Space.prototype.markedBy = function () {
+  return this.markedSpace;
+}
+
+// Board.prototype.threeInARow = function (y, x) {
+//   for (i = 0; i < board.spaces.length; i++) {
+//     if (this.spaces[i].yCoordinate === y && this.spaces[i].xCoordinate === x) {
+//       return board.spaces[i]
+//     }
+//   }
 // }
-    
+Board.prototype.find = function (y, x) {
+  for (i = 0; i < board.spaces.length; i++) {
+    if (this.spaces[i].yCoordinate === y && this.spaces[i].xCoordinate === x) {
+      return board.spaces[i]
+    }
+  }
+}
 
-function Player(mark){
-    this.mark = mark;
+
+Board.prototype.gameOver = function () {
+  for (i = 0; i < board.spaces.length; i++) {
+    if (spaces.markedSpace != "") {
+      return true
+    }
+  }
 }
 
 
 var testPlayer = new Player("X");
-console.log(testPlayer.mark); // returns "X"
+console.log(testPlayer.mark());
+
+var board = new Board();
+var testSpace = board.find(1, 2)
+console.log(testSpace)
 
 
-function Space (xCoordinate, yCoordinate, markedBy){
-    this.xCoordinate = xCoordinate;
-    this.yCoordinate = yCoordinate;
-    this.markedBy = markedBy;
-}
+console.log(testSpace.xCoordinate)
+console.log(testSpace.yCoordinate)
+
+testSpace.mark(testPlayer)
+console.log(testSpace.markedBy())
+
+console.log(board.gameOver());
 
 
 
-$(document).ready(function(){
 
-    // $("button#00").click(function() {
-    //     alert(this.id); // or alert($(this).attr('id'));
-    // });
-    // document.getElementById("myCheck").click();
-    
-    $("#topleft").click(function(event){
-        event.preventDefault();
-        var inputtedX = 1;
-        var inputtedY = 1;
-        var inputtedMarkedby = "X";
-        var newSpace = new Space (inputtedX, inputtedY, inputtedMarkedby);
-        board.push(newSpace);
-        console.log(board);
-    });  
-});  
-//     function isCherries(space) { 
-//     return space.xCoordinate === 1 && space.yCoordinate === 2;
-//   }
 
-//   board.find(isCherries)
 
-// const found = board.find(element => element > 10);
-// var board = new Board();
-// var testSpace = board.find(1, 2); // board.find(1,2) returns a Space object
-
-// testSpace.xCoordinate(); // returns 1
-// testSpace.yCoordinate(); // returns 2
-
-// testSpace.mark(testPlayer);
-// testSpace.markedBy(); // returns testPlayer or "X"
-
-// board.gameOver(); // returns a boolean
