@@ -93,44 +93,25 @@ Game.prototype.nextTurn = function (a) {
 }
 
 Game.prototype.gameOver = function (gamer, marked) {
+  console.log(gamer)
   if (gamer === true) {
     $("#winner").text(marked + " wins!")
   }
-  if (space1.markedSpace != "" && space2.markedSpace != "" && space3.markedSpace != "" &&
+  else if (space1.markedSpace != "" && space2.markedSpace != "" && space3.markedSpace != "" &&
     space4.markedSpace != "" && space5.markedSpace != "" && space6.markedSpace != "" &&
     space7.markedSpace != "" && space8.markedSpace != "" && space9.markedSpace != "") {
     return $("#winner").text("draw")
-  }
+  } else { }
+
 }
-// var testPlayer = new Player("X");
-// console.log(testPlayer.mark());
 
 
-// var board = new Board();
-// var testSpace = board.find(3, 2)
-// var testSpace1 = board.find(1, 1)
-// var testSpace2 = board.find(1, 3)
-// console.log(testSpace)
 
 
-// console.log(testSpace.xCoordinate)
-// console.log(testSpace.yCoordinate)
-
-// testSpace.mark(testPlayer)
-// testSpace1.mark(testPlayer)
-// // testSpace2.mark(testPlayer)
-// console.log(testSpace.markedBy())
-// console.log(board.threeInARow());
-// console.log(board)
-// console.log(board.gameOver());
-
-
+////////
 var player_o = new Player("O");
 var player_x = new Player("X");
 var board = new Board();
-
-
-
 $(document).ready(function () {
   var newGame = new Game(player_x, player_o, board)
   newGame.nextTurn(player_x)
